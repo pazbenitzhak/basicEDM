@@ -1,4 +1,4 @@
-#include "hiredis.h" /* TODO: put all files in the same folders, fork? */
+#include "hiredis/hiredis.h"
 #include <unistd.h> /* for execvp */
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,33 +11,11 @@ static int isInitialized; /* 1 iff a server has already been initialized for thi
 /* General note: for now all exit funcs are temporary. The true handling there
 would be distinguished later */
 
+/* No need to set up a server, as this task would be performed by SpotOS*/
+/* Therefore, we assume a server was initiated by SpotOs and its details given to us */
 
-/* init function - for setting up a server */
-/* need to set up a server at initialization 
-define the server's size, if we want replicas etc
-need to choose port and use localhost address 127.0.0.1*/
-void init() { /* for now it's without args and a void return value */
-    FILE* configFile;
-    char* filepath;
-    int isExecErr;
-    /* open a config file, inside it write all wanted lines. file needs to end with .conf */
-    configFile = fopen("serverCon.config","w"); /* open file to write all configurations */
-    /* TODO: is opening a file like this OK? YES! I've checked */
-    if (configFile==NULL) { /* that's how I chose to handle errors in fopen */
-        printf("Error in opening new file\n");
-        exit(1);
-    }
-    /* TODO; decide what the right filepath for the config file is */
-    /*#from config file: Note that in order to read the configuration file, Redis must be
-# started with the file path as first argument:
-#
-# ./redis-server /path/to/redis.conf*/
-    if ((isExecErr=execvp("redis-server",))==-1) {/* an error has occured with execvp */
-        printf("Error in initiating Redis server\n");
-        exit(1);
-    }
-    /* TODO: handle execvp errors */
-}
+
+
 
 /* connect to the server with built-in functions */
 
@@ -49,6 +27,9 @@ void init() { /* for now it's without args and a void return value */
 char* getValue(char* key, redisContext* redisContext) {
     char* value;
     value = redisCommand(context, "GET %s", key);
+    /* an impoprtant discussion - where do we get the return value from the GET operation?
+    Right now I think it's given only on std and therefore should be read from it (some kind of std).
+    Therefore here value would stand only for the response reply value! - CHECK */
     /* if value is error - handle */
     /* if value is not error - return */
     return value;
@@ -57,35 +38,28 @@ char* getValue(char* key, redisContext* redisContext) {
 
 int main(int argc, char** argv) {
     redisContext* context;
-    int port;
+    int port; /* I guess it is given by arguments*/
     int isDone;
-    /* initiate server  - if needed. maybe distinguish if needed from user's input?*/
-    if (!isInitialized) { /* need to initialize a new server */
-        init();
-        isInitialized = 1; /* as we've just initialized the new server */    
-    }
-    /* TODO: from what I understand, once initialized it might still need to be called again
-    thus we should execute the command again here without config and with port number only */
-    /* end of initiating server */
-    /* anyway, now we've got our server initialized and are ready to move forward */
+    /* We assume the server has already been initialized */
     /* now we wish to create a connection */
     /* need to decide port number */
-    context = redisConnect("127.0.0.1",port);
+    context = redisConnect("127.0.0.1",port); /* connect to right port */
     /* localhost is used since it's phase I */
     if (context == NULL || context->err) { /* handle unsuccessful connection, taken from github C client */
         if (context) {
             printf("Error: %s\n",context->errstr);
-            /* handle error */
+            /* TODO: handle error */
             /* options: run function again, abort and exit program */
         }
         else {
             printf("Can't allocate Redis context\n"); /* TODO: decide what should be written here*/
         }
     }
+    /* here we're connected */
     /* my idea: initiate a while loop for any commands wanted from app */
     /* finish while loop when given input from user */
     while(true) {
-        
+        /* need to get commands and parse them so we can send it to the right subfunction */
 
         if(isDone) {
             redisFree(context);
