@@ -1,4 +1,4 @@
-#include "hiredis/hiredis.h"
+#include "hiredis.h"
 #include <unistd.h> /* for execvp */
 #include <stdlib.h>
 #include <stdio.h>
