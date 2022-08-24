@@ -1,4 +1,4 @@
-#include "draft.c"
+#include "header.h"
 #include "hiredis/hiredis.h"
 
 int main(int argc, char** argv) {
