@@ -6,6 +6,6 @@
 redisReply* getValue(char* key, redisContext* redisContext);
 redisContext* connectToServer(char* IP, int port);
 
-void flip() {
+void flipper() {
     printf("hello world\n");
 }
