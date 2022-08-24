@@ -25,8 +25,8 @@ would be distinguished later */
 
 /* get function */
 
-char* getValue(char* key, redisContext* redisContext) {
-    redisReply reply;
+redisReply* getValue(char* key, redisContext* redisContext) {
+    redisReply* reply;
     reply = redisCommand(redisContext, "GET %s", key);
     if (reply==NULL) { /* an error has occurred */
         /* handle error. error type would be in context->err */
@@ -45,7 +45,6 @@ char* getValue(char* key, redisContext* redisContext) {
     from Redis documentation: "A client implementation may return different types of exceptions for different errors or provide a generic way to trap errors by directly providing the error name to the caller as a string."
     */
     /* if value is not error - return */
-    REDIS_REPLY_NIL;
     return reply;
 
 }
