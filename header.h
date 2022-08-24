@@ -5,3 +5,7 @@
 
 redisReply* getValue(char* key, redisContext* redisContext);
 redisContext* connectToServer(char* IP, int port);
+
+void flip() {
+    printf("hello world\n");
+}

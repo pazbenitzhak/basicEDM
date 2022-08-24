@@ -27,10 +27,12 @@ redisContext* connectToServer(char* IP, int port);
 
 /* get function */
 
+/* here's the description*/
 redisReply* getValue(char* key, redisContext* redisContext) {
     redisReply* reply;
     int replyType;
     reply = redisCommand(redisContext, "GET %s", key);
+    flip();
     if (reply==NULL) { /* an error has occurred */
         /* handle error. error type would be in context->err */
         printf("Error!\n");
@@ -94,8 +96,6 @@ redisReply* getValue(char* key, redisContext* redisContext) {
             printf("verbatim string payload is %s\n",reply->str);
             printf("type data is %s\n",reply->vtype);
             break;
-
-        default:
 
     }
 
