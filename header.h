@@ -3,5 +3,5 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-char* getValue(char* key, redisContext* redisContext);
+redisReply* getValue(char* key, redisContext* redisContext);
 redisContext* connectToServer(char* IP, int port);
