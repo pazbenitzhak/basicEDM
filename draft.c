@@ -32,11 +32,11 @@ char* getValue(char* key, redisContext* redisContext) {
         printf("Error!\n");
     }
     if (reply==REDIS_REPLY_STATUS) {
-        printf("status string: %s\n",reply->str);
-        printf("status len: %i\n",reply->len);
+        printf("status string: %s\n", (redisReply) reply->str);
+        printf("status len: %i\n",(redisReply) reply->len);
     }
-    printf("status string: %s\n",reply->str);
-    printf("status len: %i\n",reply->len);
+    printf("status string: %s\n",(redisReply) reply->str);
+    printf("status len: %i\n",(redisReply)reply->len);
     /* an important discussion - where do we get the return value from the GET operation?
     Right now I think it's given only on std and therefore should be read from it (some kind of std).
     Therefore here value would stand only for the response reply value! - CHECK */
