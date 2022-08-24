@@ -34,7 +34,7 @@ redisReply* getValue(char* key, redisContext* redisContext) {
         /* handle error. error type would be in context->err */
         printf("Error!\n");
     }
-    if (reply==REDIS_REPLY_STATUS) {
+    if (reply->type==REDIS_REPLY_STATUS) {
         printf("status string: %s\n", reply->str);
         printf("status len: %li\n", reply->len);
     }
