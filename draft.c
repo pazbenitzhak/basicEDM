@@ -15,7 +15,9 @@ would be distinguished later */
 /* No need to set up a server, as this task would be performed by SpotOS*/
 /* Therefore, we assume a server was initiated by SpotOs and its details given to us */
 
+/* functions */
 
+redisContext* connectToServer(char* IP, int port);
 
 
 /* connect to the server with built-in functions */
