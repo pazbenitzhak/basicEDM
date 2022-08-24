@@ -68,37 +68,3 @@ redisContext* connectToServer(char* IP, int port) {
     }
     return context;
 }
-
-int main(int argc, char** argv) {
-    redisContext* context;
-    char* appInput;
-    int port; /* I guess it is given by arguments*/
-    int isDone;
-    int commandFailed; /* indicates if a command process by the server failed and a new connection set up is needed,initiated as 0*/
-    /* We assume the server has already been initialized */
-    /* now we wish to create a connection */
-    /* need to decide port number */
-    context = connectToServer("127.0.0.1",port); /* connect to right port */
-    if (context) { /* context = NULL: exit the program */
-        exit(1); /* exit with error */
-    }
-    /* here we're connected */
-    /* my idea: initiate a while loop for any commands wanted from app */
-    /* finish while loop when given input from user */
-    while(true) {
-        /* TODO: need to get commands and parse them so we can send it to the right subfunction */
-        scanf("%s\n",appInput); /* scan possible command */ 
-        if (commandFailed) {
-            context = connectToServer("127.0.0.1",port); /* figure if should put inside a function or not */
-            if (context) { /* context = NULL: exit the program */
-            exit(1); /* exit with error */
-            }
-        }
-        if(isDone) {
-            redisFree(context);
-            break; /*and thus end run of program, until next time */
-            /* CHECK how we want to refer to the program - whether it's a program
-            executed that keeps running or a program that stops and starts each time */
-        }
-    }
-}*/
