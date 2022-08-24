@@ -62,7 +62,7 @@ redisReply* getValue(char* key, redisContext* redisContext) {
             break;
 
         case REDIS_REPLY_ARRAY:
-            printf("number of elements in array is %i\n",reply->elements);
+            printf("number of elements in array is %li\n",reply->elements);
             break;
 
         case REDIS_REPLY_DOUBLE:
@@ -74,11 +74,11 @@ redisReply* getValue(char* key, redisContext* redisContext) {
             break;
 
         case REDIS_REPLY_MAP: /* almost the same as array */
-            printf("number of elements in map is %i\n",reply->elements);
+            printf("number of elements in map is %li\n",reply->elements);
             break;
 
         case REDIS_REPLY_SET: /* almost the same as array */
-            printf("number of elements in set is %i\n",reply->elements);
+            printf("number of elements in set is %li\n",reply->elements);
             break;
 
         case REDIS_REPLY_PUSH:
