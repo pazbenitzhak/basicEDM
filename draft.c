@@ -29,17 +29,79 @@ redisContext* connectToServer(char* IP, int port);
 
 redisReply* getValue(char* key, redisContext* redisContext) {
     redisReply* reply;
+    int replyType;
     reply = redisCommand(redisContext, "GET %s", key);
     if (reply==NULL) { /* an error has occurred */
         /* handle error. error type would be in context->err */
         printf("Error!\n");
     }
-    if (reply->type==REDIS_REPLY_STATUS) {
-        printf("status string: %s\n", reply->str);
-        printf("status len: %li\n", reply->len);
+    /* if we got here than we have a reply->type field */
+    replyType = reply->type;
+    switch (replyType)
+    {
+        case REDIS_REPLY_STATUS:
+            printf("status string: %s\n", reply->str);
+            printf("status len: %li\n", reply->len);
+            break;
+
+        case REDIS_REPLY_ERROR:
+            printf("error status string: %s\n", reply->str);
+            break;
+
+        case REDIS_REPLY_INTEGER:
+            printf("the returned integer is: %lld\n",reply->integer);
+            break;
+
+        case REDIS_REPLY_NIL:
+            printf("no data to access \n");
+            break;
+
+        case REDIS_REPLY_STRING:
+            printf("reply string: %s\n", reply->str);
+            printf("reply string len: %li\n", reply->len);
+            break;
+
+        case REDIS_REPLY_ARRAY:
+            printf("number of elements in array is %i\n",reply->elements);
+            break;
+
+        case REDIS_REPLY_DOUBLE:
+            printf("double value (as string) is %s\n",reply->str);
+            break;
+
+        case REDIS_REPLY_BOOL:
+            printf("boolean value is: %lld",reply->integer);
+            break;
+
+        case REDIS_REPLY_MAP: /* almost the same as array */
+            printf("number of elements in map is %i\n",reply->elements);
+            break;
+
+        case REDIS_REPLY_SET: /* almost the same as array */
+            printf("number of elements in set is %i\n",reply->elements);
+            break;
+
+        case REDIS_REPLY_PUSH:
+            break; /* for now do nothing */
+
+        /* I left out REDIS_REPLY_ATTR as I think it's irrelevant */
+
+        case REDIS_REPLY_BIGNUM:
+            printf("big num as string is %s\n",reply->str);
+            break;
+
+        case REDIS_REPLY_VERB:
+            printf("verbatim string payload is %s\n",reply->str);
+            printf("type data is %s\n",reply->vtype);
+            break;
+
+        default:
+
     }
+
     printf("status string: %s\n", reply->str);
     printf("status len: %li\n",reply->len);
+    
     /* an important discussion - where do we get the return value from the GET operation?
     Right now I think it's given only on std and therefore should be read from it (some kind of std).
     Therefore here value would stand only for the response reply value! - CHECK */
