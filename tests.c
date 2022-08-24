@@ -1,5 +1,4 @@
 #include "header.h"
-#include "hiredis/hiredis.h"
 
 int main(int argc, char** argv) {
     int port;
