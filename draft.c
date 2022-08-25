@@ -1,6 +1,5 @@
 #include "header.h"
 
-#define true 1
 
 static int isInitialized; /* 1 iff a server has already been initialized for this app */
 

@@ -1,7 +1,8 @@
 #include "hiredis/hiredis.h"
 #include <unistd.h> /* for execvp */
 #include <stdlib.h>
-#include <stdio.h>
+
+#define true 1
 
 redisReply* getValue(char* key, redisContext* redisContext);
 redisContext* connectToServer(char* IP, int port);
