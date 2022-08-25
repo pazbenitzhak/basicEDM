@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 redisReply* getValue(char* key, redisContext* redisContext);
-redisContext* connectToServer(char* IP, int port);
+redisContext* abcd(char* IP, int port);
 
 void flipper() {
     printf("hello world\n");
