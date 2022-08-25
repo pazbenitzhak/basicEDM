@@ -27,6 +27,7 @@ redisContext* connectToServer(char* IP, int port);
 redisReply* getValue(char* key, redisContext* redisContext) {
     redisReply* reply;
     int replyType;
+    char* data;
     reply = redisCommand(redisContext, "GET %s", key);
     flipper();
     if (reply==NULL) { /* an error has occurred */
@@ -109,7 +110,7 @@ redisReply* getValue(char* key, redisContext* redisContext) {
 
 }
 
-redisContext* abcd(char* IP, int port) {
+redisContext* connectToServer(char* IP, int port) {
     redisContext* context;
     context = redisConnect(IP, port);
     /* localhost is used since it's phase I */
