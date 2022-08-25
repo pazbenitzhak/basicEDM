@@ -1,6 +1,3 @@
-#include <unistd.h> /* for execvp */
-#include <stdlib.h>
-#include <stdio.h>
 #include "header.h"
 
 #define true 1
