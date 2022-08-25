@@ -109,7 +109,7 @@ redisReply* getValue(char* key, redisContext* redisContext) {
 
 }
 
-redisContext* connectToServer(char* IP, int port) {
+redisContext* abcd(char* IP, int port) {
     redisContext* context;
     context = redisConnect(IP, port);
     /* localhost is used since it's phase I */
