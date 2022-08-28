@@ -11,7 +11,7 @@ would be distinguished later */
 /* Therefore, we assume a server was initiated by SpotOs and its details given to us */
 
 /* functions */
-
+char* getValue(char* key, redisContext* redisContext);
 redisContext* connectToServer(char* IP, int port);
 
 
