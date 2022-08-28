@@ -23,7 +23,7 @@ redisContext* connectToServer(char* IP, int port);
 /* get function */
 
 /* here's the description*/
-redisReply* getValue(char* key, redisContext* redisContext) {
+char* getValue(char* key, redisContext* redisContext) {
     redisReply* reply;
     int replyType;
     char* data;
@@ -37,6 +37,7 @@ redisReply* getValue(char* key, redisContext* redisContext) {
     switch (replyType)
     {
         case REDIS_REPLY_STATUS:
+            data = reply->str; /* TODO: maybe copy by strcomp? */
             printf("status string: %s\n", reply->str);
             printf("status len: %li\n", reply->len);
             break;
@@ -104,7 +105,7 @@ redisReply* getValue(char* key, redisContext* redisContext) {
     from Redis documentation: "A client implementation may return different types of exceptions for different errors or provide a generic way to trap errors by directly providing the error name to the caller as a string."
     */
     /* if value is not error - return */
-    return reply;
+    return data;
 
 }
 

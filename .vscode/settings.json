@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "hiredis.h": "c"
+        "hiredis.h": "c",
+        "stdlib.h": "c"
     }
 }
