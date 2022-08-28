@@ -28,7 +28,6 @@ redisReply* getValue(char* key, redisContext* redisContext) {
     int replyType;
     char* data;
     reply = redisCommand(redisContext, "GET %s", key);
-    flipper();
     if (reply==NULL) { /* an error has occurred */
         /* handle error. error type would be in context->err */
         printf("Error!\n");
