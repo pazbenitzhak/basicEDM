@@ -23,6 +23,7 @@ redisContext* connectToServer(char* IP, int port);
 /* get function */
 
 /* here's the description*/
+/* we'd probably decide that the key would be the virtual number */ 
 char* getValue(char* key, redisContext* redisContext) {
     redisReply* reply;
     int replyType;
