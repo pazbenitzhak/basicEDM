@@ -1,5 +1,5 @@
 #include "hiredis/hiredis.h"
-#include <unistd.h> /* for execvp */
+#include <unistd.h>
 #include <stdlib.h>
 
 #define true 1
