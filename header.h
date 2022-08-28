@@ -4,5 +4,5 @@
 
 #define true 1
 
-char* getValue(char* key, redisContext* redisContext);
+redisReply* getValue(char* key, redisContext* redisContext);
 redisContext* connectToServer(char* IP, int port);

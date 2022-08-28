@@ -11,7 +11,7 @@ would be distinguished later */
 /* Therefore, we assume a server was initiated by SpotOs and its details given to us */
 
 /* functions */
-char* getValue(char* key, redisContext* redisContext);
+redisReply* getValue(char* key, redisContext* redisContext);
 redisContext* connectToServer(char* IP, int port);
 
 
@@ -24,7 +24,7 @@ redisContext* connectToServer(char* IP, int port);
 
 /* here's the description*/
 /* we'd probably decide that the key would be the virtual number */ 
-char* getValue(char* key, redisContext* redisContext) {
+redisReply* getValue(char* key, redisContext* redisContext) {
     redisReply* reply;
     int replyType;
     char* data;
