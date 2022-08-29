@@ -115,7 +115,7 @@ void setValue(char* key, char* value, redisContext* redisContext) {
     redisReply* reply;
     size_t len; /* represents reply length */
     int replyType;
-    reply = redisCommand(redisContext, "SET %s %s", key), value;
+    reply = redisCommand(redisContext, "SET %s %s", key, value);
     if (reply==NULL) { /* an error has occurred */
         /* handle error. error type would be in context->err */
         printf("Error in setting value: reply is NULL\n");
