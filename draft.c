@@ -123,8 +123,14 @@ void setValue(char* key, char* value, redisContext* redisContext) {
     }
     /* if we got here than we have a reply->type field */
     replyType = reply->type;
-    /* else: we succeeded, finish function run */
+    /* only handle case of error type, else doesn't really matter */
+    if (replyType==REDIS_REPLY_ERROR) {
+        printf("Error: %s\n",reply->str); /* print the error type*/
+        exit(1); /* unsuccessful execution of set command */
+    }
 
+    /* else: we succeeded, finish function run */
+    freeReplyObject(reply);
 }
 
 
