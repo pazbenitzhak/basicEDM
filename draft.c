@@ -30,6 +30,7 @@ char* getValue(char* key, redisContext* redisContext) {
     char* data;
     printf("before redisCommand\n");
     reply = redisCommand(redisContext, "GET %s", key);
+    printf("after redisCommand\n");
     if (reply==NULL) { /* an error has occurred */
         /* handle error. error type would be in context->err */
         printf("Error!\n");
