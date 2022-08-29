@@ -28,6 +28,7 @@ char* getValue(char* key, redisContext* redisContext) {
     redisReply* reply;
     int replyType;
     char* data;
+    printf("before redisCommand\n");
     reply = redisCommand(redisContext, "GET %s", key);
     if (reply==NULL) { /* an error has occurred */
         /* handle error. error type would be in context->err */
