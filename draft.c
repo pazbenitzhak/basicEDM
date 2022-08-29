@@ -13,6 +13,7 @@ would be distinguished later */
 /* functions */
 char* getValue(char* key, redisContext* redisContext);
 redisContext* connectToServer(char* IP, int port);
+void setValue(char* key, char* value, redisContext* redisContext);
 
 
 /* connect to the server with built-in functions */
@@ -114,7 +115,6 @@ void setValue(char* key, char* value, redisContext* redisContext) {
     redisReply* reply;
     size_t len; /* represents reply length */
     int replyType;
-    char* value;
     reply = redisCommand(redisContext, "SET %s %s", key), value;
     if (reply==NULL) { /* an error has occurred */
         /* handle error. error type would be in context->err */
