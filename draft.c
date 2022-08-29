@@ -28,62 +28,61 @@ char* getValue(char* key, redisContext* redisContext) {
     redisReply* reply;
     size_t len; /* represents reply length */
     int replyType;
-    char* data;
-    printf("before redisCommand\n");
+    char* value;
     reply = redisCommand(redisContext, "GET %s", key);
-    printf("after redisCommand\n");
     if (reply==NULL) { /* an error has occurred */
         /* handle error. error type would be in context->err */
-        printf("Error!\n");
+        printf("Error in getting value: reply is NULL\n");
+        exit(1); /* unsuccessful reply */
     }
     /* if we got here than we have a reply->type field */
     replyType = reply->type;
     switch (replyType)
     {
         case REDIS_REPLY_STATUS:
-            data = reply->str; /* TODO: maybe copy by strcomp? */
-            printf("status string: %s\n", reply->str);
-            printf("status len: %li\n", reply->len);
+            /* a lot of times seems the same as reply string, so i'll leave it
+            to handle over there */
             break;
 
         case REDIS_REPLY_ERROR:
             printf("error status string: %s\n", reply->str);
+            exit(1); /* due to error occurring */
             break;
 
         case REDIS_REPLY_INTEGER:
-            printf("the returned integer is: %lld\n",reply->integer);
+            /* don't think it's supposed to happpen, therefore don't handle */
             break;
 
         case REDIS_REPLY_NIL:
+            /* do not change data object, since it's initiated as NULL */
             printf("no data to access \n");
             break;
 
         case REDIS_REPLY_STRING:
+            /* most important case and most useful*/
             len = reply->len;
-            data = (char*) malloc(len*sizeof(char));
-            strcpy(data, reply->str); /* copy val to data, as reply is about to be freed */
-            printf("reply string: %s\n", reply->str);
-            printf("reply string len: %li\n", reply->len);
+            value = (char*) malloc(len*sizeof(char)); /* allocate memory for data */
+            strcpy(value, reply->str); /* copy val to data, as reply is about to be freed */
             break;
 
         case REDIS_REPLY_ARRAY:
-            printf("number of elements in array is %li\n",reply->elements);
+            /* not supposed to happen and thus won't be handled */
             break;
 
         case REDIS_REPLY_DOUBLE:
-            printf("double value (as string) is %s\n",reply->str);
+            /* not supposed to happen and thus won't be handled */
             break;
 
         case REDIS_REPLY_BOOL:
-            printf("boolean value is: %lld",reply->integer);
+            /* not supposed to happen and thus won't be handled */
             break;
 
         case REDIS_REPLY_MAP: /* almost the same as array */
-            printf("number of elements in map is %li\n",reply->elements);
+            /* not supposed to happen and thus won't be handled */
             break;
 
         case REDIS_REPLY_SET: /* almost the same as array */
-            printf("number of elements in set is %li\n",reply->elements);
+            /* not supposed to happen and thus won't be handled */
             break;
 
         case REDIS_REPLY_PUSH:
@@ -92,25 +91,22 @@ char* getValue(char* key, redisContext* redisContext) {
         /* I left out REDIS_REPLY_ATTR as I think it's irrelevant */
 
         case REDIS_REPLY_BIGNUM:
-            printf("big num as string is %s\n",reply->str);
+            /* not supposed to happen and thus won't be handled */
             break;
 
         case REDIS_REPLY_VERB:
-            printf("verbatim string payload is %s\n",reply->str);
-            printf("type data is %s\n",reply->vtype);
+            /* not supposed to happen and thus won't be handled */
             break;
 
     }
 
-    printf("status string: %s\n", reply->str);
-    printf("status len: %li\n",reply->len);
     /* need to free reply object */
     freeReplyObject(reply);
     /* if value is error - handle 
     from Redis documentation: "A client implementation may return different types of exceptions for different errors or provide a generic way to trap errors by directly providing the error name to the caller as a string."
     */
     /* if value is not error - return */
-    return data;
+    return value;
 
 }
 
