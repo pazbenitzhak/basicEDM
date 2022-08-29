@@ -10,5 +10,6 @@ int main(int argc, char** argv) {
     if (context) { /* context = NULL: exit the program */
         exit(1); /* exit with error */
     }
+    printf("after if condition\n");
     getValue("a",context);
 }
