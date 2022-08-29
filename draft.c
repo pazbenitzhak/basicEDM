@@ -128,5 +128,6 @@ redisContext* connectToServer(char* IP, int port) {
             return NULL;
         }
     }
+    printf("connection successful\n");
     return context;
 }
