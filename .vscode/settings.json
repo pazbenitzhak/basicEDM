@@ -2,6 +2,7 @@
     "files.associations": {
         "hiredis.h": "c",
         "stdlib.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "header.h": "c"
     }
 }
