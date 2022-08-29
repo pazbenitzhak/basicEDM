@@ -26,6 +26,7 @@ redisContext* connectToServer(char* IP, int port);
 /* we'd probably decide that the key would be the virtual number */ 
 char* getValue(char* key, redisContext* redisContext) {
     redisReply* reply;
+    size_t len; /* represents reply length */
     int replyType;
     char* data;
     printf("before redisCommand\n");
@@ -58,7 +59,9 @@ char* getValue(char* key, redisContext* redisContext) {
             break;
 
         case REDIS_REPLY_STRING:
-            data = reply->str;
+            len = reply->len;
+            data = (char*) malloc(len*sizeof(char));
+            strcpy(data, reply->str); /* copy val to data, as reply is about to be freed */
             printf("reply string: %s\n", reply->str);
             printf("reply string len: %li\n", reply->len);
             break;
