@@ -6,3 +6,4 @@
 
 char* getValue(char* key, redisContext* redisContext);
 redisContext* connectToServer(char* IP, int port);
+void setValue(char* key, char* value, redisContext* redisContext);

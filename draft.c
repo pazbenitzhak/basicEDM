@@ -22,7 +22,6 @@ redisContext* connectToServer(char* IP, int port);
 
 /* get function */
 
-/* here's the description*/
 /* we'd probably decide that the key would be the virtual number */ 
 char* getValue(char* key, redisContext* redisContext) {
     redisReply* reply;
@@ -65,6 +64,7 @@ char* getValue(char* key, redisContext* redisContext) {
             strcpy(value, reply->str); /* copy val to data, as reply is about to be freed */
             break;
 
+        /* for now I'm keeping the other options here, but later may delete them */
         case REDIS_REPLY_ARRAY:
             /* not supposed to happen and thus won't be handled */
             break;
@@ -109,6 +109,24 @@ char* getValue(char* key, redisContext* redisContext) {
     return value;
 
 }
+
+void setValue(char* key, char* value, redisContext* redisContext) {
+    redisReply* reply;
+    size_t len; /* represents reply length */
+    int replyType;
+    char* value;
+    reply = redisCommand(redisContext, "SET %s %s", key), value;
+    if (reply==NULL) { /* an error has occurred */
+        /* handle error. error type would be in context->err */
+        printf("Error in setting value: reply is NULL\n");
+        exit(1); /* unsuccessful reply */
+    }
+    /* if we got here than we have a reply->type field */
+    replyType = reply->type;
+    /* else: we succeeded, finish function run */
+
+}
+
 
 redisContext* connectToServer(char* IP, int port) {
     redisContext* context;
