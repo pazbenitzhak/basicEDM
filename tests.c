@@ -8,6 +8,7 @@ int main(int argc, char** argv) {
     context = connectToServer("127.0.0.1",port); /* connect to right port */
     printf("after connection\n");
     if (context) { /* context = NULL: exit the program */
+        printf("if confirmed\n");
         exit(1); /* exit with error */
     }
     printf("after if condition\n");
