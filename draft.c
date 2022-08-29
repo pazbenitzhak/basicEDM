@@ -58,6 +58,7 @@ char* getValue(char* key, redisContext* redisContext) {
             break;
 
         case REDIS_REPLY_STRING:
+            data = reply->str;
             printf("reply string: %s\n", reply->str);
             printf("reply string len: %li\n", reply->len);
             break;
