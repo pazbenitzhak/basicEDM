@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
     printf("context error str is: %s\n",context->errstr);
     printf("context err val is: %i\n",context->err);
     printf("context addrlen is: %li\n",context->addrlen);
-    if (context) { /* context = NULL: exit the program */
+    if (context==NULL) { /* context = NULL: exit the program */
         printf("if confirmed\n");
         exit(1); /* exit with error */
     }
