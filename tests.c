@@ -7,7 +7,8 @@ int main(int argc, char** argv) {
     printf("In tests\n");
     context = connectToServer("127.0.0.1",port); /* connect to right port */
     printf("after connection\n");
-    printf("context error val is: %s\n",context->err);
+    printf("context error str is: %c\n",context->errstr);
+    printf("context err val is: %i\n",context->err);
     printf("context addrlen is: %li\n",context->addrlen);
     if (context) { /* context = NULL: exit the program */
         printf("if confirmed\n");
