@@ -101,10 +101,8 @@ char* getValue(char* key, redisContext* redisContext) {
 
     printf("status string: %s\n", reply->str);
     printf("status len: %li\n",reply->len);
-    
-    /* an important discussion - where do we get the return value from the GET operation?
-    Right now I think it's given only on std and therefore should be read from it (some kind of std).
-    Therefore here value would stand only for the response reply value! - CHECK */
+    /* need to free reply object */
+    freeReplyObject(reply);
     /* if value is error - handle 
     from Redis documentation: "A client implementation may return different types of exceptions for different errors or provide a generic way to trap errors by directly providing the error name to the caller as a string."
     */
