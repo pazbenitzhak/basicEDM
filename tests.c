@@ -1,5 +1,9 @@
 #include "header.h"
 
+/* compilation command: need to compile all files at once:
+gcc tests.c draft.c hiredis/hiredis.c hiredis/alloc.c hiredis/async.c hiredis/dict.c hiredis/net.c hiredis/read.c hiredis/sds.c hiredis/sockcompat.c hiredis/ssl.c -L/usr/local/ssl/lib -lssl -lcrypto -o tests
+*/
+
 int main(int argc, char** argv) {
     int port;
     redisContext* context;
